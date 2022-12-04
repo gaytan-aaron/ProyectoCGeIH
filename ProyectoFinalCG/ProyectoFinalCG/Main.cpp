@@ -93,6 +93,9 @@ Model Sushi;
 Model Aguas;
 Model Verduras;
 Model Brochetas;
+Model Teatro;
+Model Tortas;
+Model Trompo;
 Skybox skybox;
 
 //materiales
@@ -277,9 +280,11 @@ int main()
 	Poste_M = Model();
 	Poste_M.LoadModel("Models/posteobj.obj");
 	PuestoTortas1 = Model();
-	PuestoTortas1.LoadModel("Models/PuestoTortas1.obj");
+	PuestoTortas1.LoadModel("Models/PuestoTortas2.obj");
 	PuestoTacos1 = Model();
-	PuestoTacos1.LoadModel("Models/PuestoTacos1.obj");
+	PuestoTacos1.LoadModel("Models/PuestoTacos2.obj");
+	Trompo = Model();
+	Trompo.LoadModel("Models/Trompo.obj");
 	Fdhd = Model();
 	Fdhd.LoadModel("Models/Foodthd.obj");
 	Fdpi = Model();
@@ -294,6 +299,10 @@ int main()
 	Verduras.LoadModel("Models/foodtruckVerduras.obj");
 	Brochetas = Model();
 	Brochetas.LoadModel("Models/puestoBrochetas.obj");
+	Tortas = Model();
+	Tortas.LoadModel("Models/Torttas.obj");
+	Teatro = Model();
+	Teatro.LoadModel("Models/teatro.obj");
 
 	std::vector<std::string> skyboxFaces;
 	skyboxFaces.push_back("Textures/Skybox/skybox_rgt.tga");
@@ -438,6 +447,13 @@ int main()
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PuestoTacos1.RenderModel();
+		//Trompo
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(100.0f, -3.0f, -150.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Trompo.RenderModel();
 
 		//Puesto Tortas
 		model = glm::mat4(1.0);
@@ -446,6 +462,14 @@ int main()
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PuestoTortas1.RenderModel();
+		
+		//Tortas
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(200.0f, -3.0f, -150.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Tortas.RenderModel();
 
 
 		//Foodtruck Pízzas
@@ -495,6 +519,14 @@ int main()
 		model = glm::rotate(model, -185 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Brochetas.RenderModel();
+
+		//Teatro
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, 20.0));
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		model = glm::rotate(model, -185 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Teatro.RenderModel();
 
 		glUseProgram(0);
 
