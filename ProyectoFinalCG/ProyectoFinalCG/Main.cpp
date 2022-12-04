@@ -286,7 +286,7 @@ int main()
 	dirtTexture.LoadTextureA();
 	plainTexture = Texture("Textures/plain.png");
 	plainTexture.LoadTextureA();
-	pisoTexture = Texture("Textures/piso.tga");
+	pisoTexture = Texture("Textures/pisoladrillo.tga");
 	pisoTexture.LoadTextureA();
 	FlechaTexture = Texture("Textures/LetreroTacostga.tga");
 	FlechaTexture.LoadTextureA();
@@ -430,10 +430,7 @@ int main()
 	movCoche = 0.0f;
 	movHel = 0.0f;
 	movHel1 = 0.0f;
-	movOffset = 0.01f;//.01
-	movOffset = 0.01f;//.01
-	//movOffset = 0.1f;//.01
-	//movOffset = 0.1f;//.01
+	movOffset = 0.03f;//.01
 	rotllanta = 0.05f;//0.05
 	rotllanta1 = 0.5f;
 	rotllanta2 = 6.1f;//0.05
@@ -452,7 +449,7 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 
-		if (currentTime - initialTime > 20) {
+		if (currentTime - initialTime > 40) {
 			dayCicleFlag = !dayCicleFlag;
 			initialTime = time(NULL);
 			currentTime = time(NULL);
@@ -685,12 +682,9 @@ int main()
 
 		//Don Gato
 		model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(150.0f-movHel,0.0f,0.0f));
-		model = glm::translate(model, glm::vec3(10.0f-movHel + (3.5 * sin(glm::radians(rotllanta))), 0.0f, -2.0f-movHel - 0.1 * rotllanta));
-		model = glm::translate(model, glm::vec3(10.0f - movHel1 + (3.5 * sin(glm::radians(rotllanta))), 0.0f, 2.0f - movHel1 - 0.1 * rotllanta));
-		model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
-		//glm::vec3(1.0f, 3.0f + (3.5 * sin(glm::radians(rotllanta))), 0.0f)
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), -2.0f, mainWindow.getmuevez()));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		model = glm::rotate(model, mainWindow.getorientacion() * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Dongato.RenderModel();
 
@@ -721,17 +715,14 @@ int main()
 
 		//Carro de aguas
 		model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-50.0f, -2.0f, 150.0));
-		model = glm::translate(model, glm::vec3(-movHel, 0.0f - (3.5 * sin(glm::radians(rotllanta))), -movHel));
+		model = glm::translate(model, glm::vec3(-50.0f, 0.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), 150.0));
 		model = glm::scale(model, glm::vec3(3.0f,3.0f, 3.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Aguas.RenderModel();
-
 		//Globo
 		model = glm::mat4(1.0);
-		//model = glm::translate(model, glm::vec3(-50.0f, -2.0f, 150.0));
-		model = glm::translate(model, glm::vec3(-movHel, 0.0f - (3.5 * sin(glm::radians(rotllanta))), -movHel));
+		model = glm::translate(model, glm::vec3(-50.0f, 0.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), 150.0));
 		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));

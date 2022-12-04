@@ -1,32 +1,9 @@
 ﻿  Main.cpp
-<<<<<<< HEAD
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(13,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(431,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(437,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-  Shader_light.cpp
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(215,75): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(215,26): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(214,91): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(214,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(228,98): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(228,62): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(228,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(227,70): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(227,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(226,88): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Shader_light.cpp(226,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
-  Skybox.cpp
-  Texture.cpp
-  Generando código...
+D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(18,36): warning C4244: 'return': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(443,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(449,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(749,20): warning C4305: '+=': truncamiento de 'double' a 'float'
   ProyectoFinalCG.vcxproj -> D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\Debug\ProyectoFinalCG.exe
-=======
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(13,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(403,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(409,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
-C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(681,20): warning C4305: '+=': truncamiento de 'double' a 'float'
-  ProyectoFinalCG.vcxproj -> C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\Debug\ProyectoFinalCG.exe
->>>>>>> 9ab44c4b80c96cec9a0de22b8ff1223754e88707
