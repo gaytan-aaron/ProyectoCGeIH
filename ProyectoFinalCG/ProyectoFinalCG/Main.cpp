@@ -21,7 +21,7 @@ Animación:
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 //para probar el importer
-//#include<assimp/Importer.hpp>
+#include<assimp/Importer.hpp>
 
 #include "Window.h"
 #include "Mesh.h"
@@ -111,10 +111,14 @@ GLfloat lastTime = 0.0f;
 static double limitFPS = 1.0 / 60.0;
 
 // luz direccional
-DirectionalLight mainLight;
+DirectionalLight mainLightDay;
+DirectionalLight mainLightNight;
+
 //para declarar varias luces de tipo pointlight
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
+PointLight staticPL[MAX_POINT_LIGHTS];
+SpotLight staticSL[MAX_SPOT_LIGHTS];
 
 // Vertex Shader
 static const char* vShader = "shaders/shader_light.vert";
@@ -259,6 +263,16 @@ int main()
 	std::vector<std::string> skyboxFacesDay;
 	std::vector<std::string> skyboxFacesNight;
 
+	//Indices de luces
+	int pizzasIndex = 0;
+	int hotDIndex = 0;
+	int tacosIndex = 0;
+	int tortasIndex = 0;
+	int sushiIndex = 0;
+	int verdurasIndex = 0;
+	int aguasIndex = 0;
+	int banderillasIndex = 0;
+
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.5f, 0.5f);
 
 	brickTexture = Texture("Textures/brick.png");
@@ -329,44 +343,73 @@ int main()
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
 
-
-	//luz direccional, sólo 1 y siempre debe de existir
-	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-		0.3f, 0.3f,
+	//Luces direccionales de noche y día
+	mainLightDay = DirectionalLight(1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f,
 		0.0f, 0.0f, -1.0f);
+
+	mainLightNight = DirectionalLight(1.0f, 1.0f, 1.0f,
+		0.3f, 0.1f,
+		0.0f, 0.0f, -1.0f);
+
 	//contador de luces puntuales
 	unsigned int pointLightCount = 0;
-	//Declaración de primer luz puntual
-	pointLights[0] = PointLight(1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f,
-		0.0f, 2.5f, 1.5f,
-		0.3f, 0.2f, 0.1f);
+	unsigned int spotLightCount = 0;
+
+	//Luz de tacos
+	staticPL[0] = PointLight(0.9608f, 0.6902f, 0.2549f,
+		100.0f, 10.0f,
+		100.0f, 25.0f, -150.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+	
+	//Luz de tortas
+	staticPL[1] = PointLight(1.0f, 1.0f, 1.0f,
+		50.0f, 10.0f,
+		200.0f, 30.0f, -150.0f,
+		0.2f, 0.2f, 0.2f);
+	pointLightCount++;
+	
+	//Luz de sushi
+	staticPL[2] = PointLight(0.0f, 0.0f, 1.0f,
+		100.0f, 10.0f,
+		130.0f, 25.0f, 150.0f,
+		0.1f, 0.1f, 0.1f);
 	pointLightCount++;
 
-	unsigned int spotLightCount = 0;
-	//linterna
-	spotLights[0] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 2.0f,
-		0.0f, 0.0f, 0.0f,
+	//Luz de banderillas
+	staticPL[3] = PointLight(0.9255f, 0.0f, 1.0f,
+		50.0f, 10.0f,
+		-100.0f, 5.0f, 150.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	//Luz pizzas
+	staticSL[0] = SpotLight(1.0f, 0.0f,0.0f,
+		10.0f, 1.0f,
+		-160.0f, 5.0f, -150.0f,
+		-1.0f, 0.0f, 0.0f,
+		1.0f, 0.003f, 0.003f,
+		20.0f);
+	spotLightCount++;
+
+	//Luz hotdogs
+	staticSL[1] = SpotLight(1.0f, 1.0f, 0.0f,
+		10.0f, 1.0f,
+		-30.0f, 10.0f, -150.0f,
+		-1.0f, 0.0f, 0.0f,
+		1.0f, 0.003f, 0.003f,
+		20.0f);
+	spotLightCount++;
+
+	//Luz aguas
+	staticSL[2] = SpotLight(1.0f, 1.0f, 1.0f,
+		10.0f, 1.0f,
+		-50.0f, 20.0f, 150.0f,
 		0.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		5.0f);
+		1.0f, 0.003f, 0.003f,
+		20.0f);
 	spotLightCount++;
-
-	//luz fija
-	spotLights[1] = SpotLight(0.0f, 0.0f, 1.0f,
-		1.0f, 2.0f,
-		5.0f, 10.0f, 0.0f,
-		0.0f, -5.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		15.0f);
-	spotLightCount++;
-
-	//luz de helicóptero
-
-	//luz de faro
-
-
 
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
@@ -394,7 +437,7 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 
-		if (currentTime - initialTime > 3) {
+		if (currentTime - initialTime > 20) {
 			dayCicleFlag = !dayCicleFlag;
 			initialTime = time(NULL);
 			currentTime = time(NULL);
@@ -450,19 +493,54 @@ int main()
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));	
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
 		// luz ligada a la cámara de tipo flash
-		glm::vec3 lowerLight = camera.getCameraPosition();
+		/*glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.3f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());*/
+
+		//Encendido apagado y show de luces
+		spotLightCount = 0;
+		pointLightCount = 0;
+
+		if (dayCicleFlag) {
+			spotLights[spotLightCount] = staticSL[0]; //Añadimos luz de pizzas
+			pizzasIndex = spotLightCount;
+			spotLightCount++;
+			spotLights[spotLightCount] = staticSL[1]; //Añadimos luz de hotdogs
+			hotDIndex = spotLightCount;
+			spotLightCount++;
+			spotLights[spotLightCount] = staticSL[2]; //Añadimos luz de hotdogs
+			aguasIndex = spotLightCount;
+			spotLightCount++;
+
+			pointLights[pointLightCount] = staticPL[0]; //Añadimos luz de tacos
+			tacosIndex = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[1]; //Añadimos luz de tortas
+			tortasIndex = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[2]; //Añadimos luz de sushi
+			sushiIndex = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[3]; //Añadimos luz de banderillas
+			banderillasIndex = pointLightCount;
+			pointLightCount++;
+		}
+		else {
+
+		}
 
 		//información al shader de fuentes de iluminación
-		shaderList[0].SetDirectionalLight(&mainLight);
-		shaderList[0].SetPointLights(pointLights, pointLightCount);
+		if(dayCicleFlag)
+			shaderList[0].SetDirectionalLight(&mainLightNight);
+		else
+			shaderList[0].SetDirectionalLight(&mainLightDay);
 		shaderList[0].SetSpotLights(spotLights, spotLightCount);
+		shaderList[0].SetPointLights(pointLights, pointLightCount);
 
 		glm::mat4 model(1.0);
 		glm::mat4 modelaux(1.0);
@@ -479,7 +557,6 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
 
-		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		//Food Truck Hot-Dogs
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-20.0f, -8.0f, -150.0));
