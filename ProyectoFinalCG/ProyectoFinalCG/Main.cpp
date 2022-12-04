@@ -96,7 +96,9 @@ Model Brochetas;
 Model Teatro;
 Model Tortas;
 Model Trompo;
-Skybox skybox;
+
+Skybox skyboxDay;
+Skybox skyboxNight;
 
 //materiales
 Material Material_brillante;
@@ -250,6 +252,13 @@ int main()
 	CreateObjects();
 	CreateShaders();
 
+	bool dayCicleFlag = true;
+	time_t initialTime = time(NULL);
+	time_t currentTime = time(NULL);
+
+	std::vector<std::string> skyboxFacesDay;
+	std::vector<std::string> skyboxFacesNight;
+
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.5f, 0.5f);
 
 	brickTexture = Texture("Textures/brick.png");
@@ -265,10 +274,6 @@ int main()
 	FlechaTexture1 = Texture("Textures/LetreroTortastga.tga");
 	FlechaTexture1.LoadTextureA();
 
-	Kitt_M = Model();
-	Kitt_M.LoadModel("Models/kitt_optimizado.obj");
-	Llanta_M = Model();
-	Llanta_M.LoadModel("Models/k_rueda.3ds");
 	Blackhawk_M = Model();
 	Blackhawk_M.LoadModel("Models/uh60.obj");
 	Camino_M = Model();
@@ -304,15 +309,22 @@ int main()
 	Teatro = Model();
 	Teatro.LoadModel("Models/teatro.obj");
 
-	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_rgt.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_lft.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_btm.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_tp.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox-night_fr.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_rgt.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_lft.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_btm.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_tp.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_bk.tga");
+	skyboxFacesDay.push_back("Textures/Skybox/skybox_fr.tga");
 
-	skybox = Skybox(skyboxFaces);
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_rgt.tga");
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_lft.tga");
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_btm.tga");
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_tp.tga");
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_bk.tga");
+	skyboxFacesNight.push_back("Textures/Skybox/skybox-night_fr.tga");
+
+	skyboxDay = Skybox(skyboxFacesDay);
+	skyboxNight = Skybox(skyboxFacesNight);
 
 	Material_brillante = Material(4.0f, 256);
 	Material_opaco = Material(0.3f, 4);
@@ -382,6 +394,15 @@ int main()
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
 
+		if (currentTime - initialTime > 3) {
+			dayCicleFlag = !dayCicleFlag;
+			initialTime = time(NULL);
+			currentTime = time(NULL);
+		}
+		else {
+			currentTime = time(NULL);
+		}
+
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
@@ -389,7 +410,10 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		skybox.DrawSkybox(camera.calculateViewMatrix(), projection);
+		if(dayCicleFlag)
+			skyboxNight.DrawSkybox(camera.calculateViewMatrix(), projection);
+		else
+			skyboxDay.DrawSkybox(camera.calculateViewMatrix(), projection);
 		shaderList[0].UseShader();
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
