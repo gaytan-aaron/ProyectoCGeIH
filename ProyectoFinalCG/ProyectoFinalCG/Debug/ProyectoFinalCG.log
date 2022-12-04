@@ -1,4 +1,5 @@
 ﻿  Main.cpp
+<<<<<<< HEAD
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(13,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
 D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
@@ -20,3 +21,12 @@ D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\Proye
   Texture.cpp
   Generando código...
   ProyectoFinalCG.vcxproj -> D:\Documents\Universidad\Computacion Grafica\ProyectoFinalCG\ProyectoCGeIH\ProyectoFinalCG\Debug\ProyectoFinalCG.exe
+=======
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(13,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(403,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(409,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(681,20): warning C4305: '+=': truncamiento de 'double' a 'float'
+  ProyectoFinalCG.vcxproj -> C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto3\ProyectoCGeIH\ProyectoFinalCG\Debug\ProyectoFinalCG.exe
+>>>>>>> 9ab44c4b80c96cec9a0de22b8ff1223754e88707

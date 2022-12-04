@@ -42,6 +42,7 @@ const float toRadians = 3.14159265f / 180.0f;
 
 //variables para animación
 float movCoche;
+float movCoche1;
 float movHel;
 float movHel1;
 float movCo1;
@@ -51,6 +52,7 @@ float movCo4;
 float movOffset;
 float rotllanta;
 float rotllanta1;
+float rotllanta2;
 float rotllantaOffset;
 bool avanza;
 bool avanza1;
@@ -96,6 +98,9 @@ Model Brochetas;
 Model Teatro;
 Model Tortas;
 Model Trompo;
+Model Plato;
+Model Lpizza;
+Model Globo;
 
 Skybox skyboxDay;
 Skybox skyboxNight;
@@ -322,6 +327,12 @@ int main()
 	Tortas.LoadModel("Models/Torttas.obj");
 	Teatro = Model();
 	Teatro.LoadModel("Models/teatro.obj");
+	Plato = Model();
+	Plato.LoadModel("Models/platosushi.obj");
+	Lpizza = Model();
+	Lpizza.LoadModel("Models/letreropizza.obj");
+	Globo = Model();
+	Globo.LoadModel("Models/globo.obj");
 
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_rgt.tga");
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_lft.tga");
@@ -421,8 +432,12 @@ int main()
 	movHel1 = 0.0f;
 	movOffset = 0.01f;//.01
 	movOffset = 0.01f;//.01
-	rotllanta = 0.05f;
-	rotllantaOffset = 0.01f;
+	//movOffset = 0.1f;//.01
+	//movOffset = 0.1f;//.01
+	rotllanta = 0.05f;//0.05
+	rotllanta1 = 0.5f;
+	rotllanta2 = 6.1f;//0.05
+	rotllantaOffset = 0.09f;
 
 
 	////Loop mientras no se cierra la ventana
@@ -468,6 +483,62 @@ int main()
 				avanza = true;
 			}
 		}
+		if (avanza1)
+		{
+			if (movCoche1 > -5.0f)
+			{
+				movCoche1 -= movOffset * deltaTime;
+				//printf("avanza%f \n ",movCoche);
+			}
+			else {
+				avanza1 = false;
+			}
+		}
+		if (!avanza1)
+		{
+			if (movHel < 15.0f)
+			{
+				movHel += movOffset * deltaTime;
+			}
+			else
+			{
+				avanza1 = true;
+			}
+		}
+		if (!avanza1)
+		{
+			if (movHel > -25.0f)
+			{
+				movHel += movOffset * deltaTime;
+			}
+			else
+			{
+				avanza1 = true;
+			}
+		}
+		if (!avanza2)
+		{
+			if (movHel1 < 1.0f)
+			{
+				movHel1 += movOffset * deltaTime;
+			}
+			else
+			{
+				avanza2 = true;
+			}
+		}
+		if (!avanza2)
+		{
+			if (movHel1 > -1.0f)
+			{
+				movHel1 += movOffset * deltaTime;
+			}
+			else
+			{
+				avanza2 = true;
+			}
+		}
+		//
 		rotllanta += rotllantaOffset * deltaTime;
 
 		glfwPollEvents();
@@ -590,7 +661,7 @@ int main()
 		
 		//Tortas
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(200.0f, -3.0f, -150.0));
+		model = glm::translate(model, glm::vec3(200.0f, -3.0f, -150.0 - movCoche));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -604,10 +675,21 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Fdpi.RenderModel();
 
+		//Letrero Pízzas
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(-150.0f, -8.0f, -150.0));
+		model = glm::scale(model, glm::vec3(1.2f, 1.2f, 1.2f));
+		model = glm::rotate(model, 10 * toRadians, glm::vec3(-movHel, 0.0f - (3.5 * sin(glm::radians(rotllanta))), 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Lpizza.RenderModel();
+
 		//Don Gato
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-150.0f, -0.0f, -1.0));
+		//model = glm::translate(model, glm::vec3(150.0f-movHel,0.0f,0.0f));
+		model = glm::translate(model, glm::vec3(10.0f-movHel + (3.5 * sin(glm::radians(rotllanta))), 0.0f, -2.0f-movHel - 0.1 * rotllanta));
+		model = glm::translate(model, glm::vec3(10.0f - movHel1 + (3.5 * sin(glm::radians(rotllanta))), 0.0f, 2.0f - movHel1 - 0.1 * rotllanta));
 		model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
+		//glm::vec3(1.0f, 3.0f + (3.5 * sin(glm::radians(rotllanta))), 0.0f)
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Dongato.RenderModel();
@@ -618,11 +700,20 @@ int main()
 		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Sushi.RenderModel();
+		Sushi.RenderModel();+
+		
+		//platoSushi
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(5.0f-movCoche, -8.0f, 13.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Plato.RenderModel();
 
 		//Carro de verduras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(20.0f, -2.0f, 65.0));
+		model = glm::translate(model, glm::vec3(20.0f-movCoche, -2.0f, 65.0));
+		//model = glm::translate(model, glm::vec3(-movHel1, 3.0f + (3.5 * sin(glm::radians(rotllanta))), -movHel - 0.1 * rotllanta));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -630,11 +721,21 @@ int main()
 
 		//Carro de aguas
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-50.0f, -2.0f, 150.0));
+		//model = glm::translate(model, glm::vec3(-50.0f, -2.0f, 150.0));
+		model = glm::translate(model, glm::vec3(-movHel, 0.0f - (3.5 * sin(glm::radians(rotllanta))), -movHel));
 		model = glm::scale(model, glm::vec3(3.0f,3.0f, 3.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Aguas.RenderModel();
+
+		//Globo
+		model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(-50.0f, -2.0f, 150.0));
+		model = glm::translate(model, glm::vec3(-movHel, 0.0f - (3.5 * sin(glm::radians(rotllanta))), -movHel));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Globo.RenderModel();
 
 		//Brochetas
 		model = glm::mat4(1.0);
@@ -652,6 +753,52 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Teatro.RenderModel();
 
+		//textura con movimiento
+		//Importantes porque la variable uniform no podemos modificarla directamente
+		toffsetu += 0.001;
+		toffsetv += 0.0;
+		//para que no se desborde la variable
+		if (toffsetu > 1.0)
+			toffsetu = 0.0;//eje hacia arriba
+		//if (toffsetv > 1.0)
+		//	toffsetv = 0;
+		//printf("\ntfosset %f \n", toffsetu);
+		//pasar a la variable uniform el valor actualizado
+		toffset = glm::vec2(toffsetu, toffsetv);//2 valores, el incremento hace q las flechas se vean animadas
+		//las felchas se mueven es un plano y e mueven las coordenadas de texturizado
+		//ecuación del peralte
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(100.0f, 15.0f, -190.0));
+		//model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		//toffset=glm::vec2(0.0f,0.0f);
+		//AgaveTexture.UseTexture();
+		FlechaTexture.UseTexture();
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		//meshList[3]->RenderMesh();
+		glDisable(GL_BLEND);
+		meshList[3]->RenderMesh();
+		///
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(200.0f, 15.0f, -140.0));
+		model = glm::rotate(model, 90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(9.0f, 9.0f, 9.0f));
+		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+
+		toffset = glm::vec2(0.0f, 0.0f);
+		//AgaveTexture.UseTexture();
+		FlechaTexture1.UseTexture();
+		//Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		meshList[4]->RenderMesh();
+		//
+		glDisable(GL_BLEND);
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();
