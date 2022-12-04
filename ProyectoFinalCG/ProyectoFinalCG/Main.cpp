@@ -305,12 +305,12 @@ int main()
 	Teatro.LoadModel("Models/teatro.obj");
 
 	std::vector<std::string> skyboxFaces;
-	skyboxFaces.push_back("Textures/Skybox/skybox_rgt.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox_lft.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox_btm.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox_tp.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox_bk.tga");
-	skyboxFaces.push_back("Textures/Skybox/skybox_fr.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_rgt.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_lft.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_btm.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_tp.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_bk.tga");
+	skyboxFaces.push_back("Textures/Skybox/skybox-night_fr.tga");
 
 	skybox = Skybox(skyboxFaces);
 
