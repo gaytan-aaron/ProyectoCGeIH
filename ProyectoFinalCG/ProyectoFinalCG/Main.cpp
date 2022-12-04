@@ -364,10 +364,10 @@ int main()
 	movCoche = 0.0f;
 	movHel = 0.0f;
 	movHel1 = 0.0f;
-	movOffset = 0.1f;//.01
-	movOffset = 0.1f;//.01
-	rotllanta = 6.1f;
-	rotllantaOffset = 0.9f;
+	movOffset = 0.01f;//.01
+	movOffset = 0.01f;//.01
+	rotllanta = 0.05f;
+	rotllantaOffset = 0.01f;
 
 
 	////Loop mientras no se cierra la ventana
@@ -381,7 +381,29 @@ int main()
 		//vale .01m decrementandpo .01
 		deltaTime += (now - lastTime) / limitFPS;
 		lastTime = now;
-
+		if (avanza)
+		{
+			if (movCoche > -1.0f)
+			{
+				movCoche -= movOffset * deltaTime;
+				//printf("avanza%f \n ",movCoche);
+			}
+			else {
+				avanza = false;
+			}
+		}
+		if (!avanza)
+		{
+			if (movCoche < 1.0f)
+			{
+				movCoche += movOffset * deltaTime;
+			}
+			else
+			{
+				avanza = true;
+			}
+		}
+		rotllanta += rotllantaOffset * deltaTime;
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime);
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
@@ -449,7 +471,7 @@ int main()
 		PuestoTacos1.RenderModel();
 		//Trompo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(100.0f, -3.0f, -150.0));
+		model = glm::translate(model, glm::vec3(100.0f-movCoche, -3.0f, -150.0));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -471,7 +493,6 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Tortas.RenderModel();
 
-
 		//Foodtruck Pízzas
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-150.0f, -8.0f, -150.0));
@@ -482,8 +503,8 @@ int main()
 
 		//Don Gato
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-150.0f, -30.0f, -1.0));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(-150.0f, -0.0f, -1.0));
+		model = glm::scale(model, glm::vec3(1.8f, 1.8f, 1.8f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Dongato.RenderModel();

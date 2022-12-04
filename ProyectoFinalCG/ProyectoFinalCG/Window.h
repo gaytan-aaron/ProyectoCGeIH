@@ -32,6 +32,7 @@ private:
 	GLfloat yChange;
 	GLfloat muevex;
 	bool mouseFirstMoved;
+	bool avanza;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);
 	static void ManejaMouse(GLFWwindow* window, double xPos, double yPos);
 
