@@ -14,6 +14,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	width = windowWidth;
 	height = windowHeight;
 	muevex = 2.0f;
+	bool avanza = 0.0f;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -106,11 +107,11 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	}
 	if (key == GLFW_KEY_Y)
 	{
-		theWindow-> muevex += 1.0;
+		theWindow-> avanza = false;
 	}
 	if (key == GLFW_KEY_U)
 	{
-		theWindow-> muevex -= 1.0;
+		theWindow-> avanza = true;
 	}
 
 
