@@ -13,7 +13,9 @@ Animación:
 #include <cmath>r
 #include <vector>
 #include <math.h>
-
+#include <windows.h>
+#include <playsoundapi.h>
+#include <Mmsystem.h>
 #include <glew.h>
 #include <glfw3.h>
 
@@ -435,7 +437,8 @@ int main()
 	rotllanta1 = 0.5f;
 	rotllanta2 = 6.1f;//0.05
 	rotllantaOffset = 0.09f;
-
+	//CORRECTO EL DE ABAJO
+	sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
 
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())

@@ -1,1 +1,9 @@
-﻿
+﻿  Main.cpp
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(13,10): warning C4067: símbolos (token) inesperados después de la directiva del preprocesador; se esperaba una nueva línea
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Window.h(18,36): warning C4244: 'return': conversión de 'int' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(446,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(452,33): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\ProyectoFinalCG\Main.cpp(752,20): warning C4305: '+=': truncamiento de 'double' a 'float'
+  ProyectoFinalCG.vcxproj -> C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto5\ProyectoCGeIH\ProyectoFinalCG\Debug\ProyectoFinalCG.exe
