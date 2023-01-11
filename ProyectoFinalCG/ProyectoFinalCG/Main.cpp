@@ -66,6 +66,8 @@ bool avanzac4;
 float toffsetu = 0.0f;
 float toffsetv = 0.0f;
 
+const float PI = 3.14159265f;
+
 Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
@@ -259,6 +261,158 @@ void CreateShaders()
 	shaderList.push_back(*shader1);
 }
 
+void CreateToroid(int res) {
+
+	//constantes utilizadas en los ciclos for
+	int n, i, coordenada = 0;
+	//número de vértices ocupados
+	int verticesBase = (res + 1) * 48;
+	//cálculo del paso interno en la circunferencia y variables que almacenarán cada coordenada de cada vértice
+	GLfloat dt = 2 * PI / res, x, z, y = 0.0f;
+	//apuntadores para guardar todos los vértices e índices generados
+	GLfloat* vertices = (GLfloat*)calloc(sizeof(GLfloat*), (verticesBase));
+	unsigned int* indices = (unsigned int*)calloc(sizeof(unsigned int*), verticesBase / 8);
+
+	for (n = 0; n <= res; n++)
+	{
+		x = cos((n)*dt);
+		z = sin((n)*dt);
+
+		printf("%f | %f \n", x, z);
+
+		//Generamos el vertice interior
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x;
+				break;
+			case 1:
+				vertices[i + coordenada] = y;
+				break;
+			case 2:
+				vertices[i + coordenada] = z;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+		//Generamos el vertice exterior
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x * 2;
+				break;
+			case 1:
+				vertices[i + coordenada] = y;
+				break;
+			case 2:
+				vertices[i + coordenada] = z * 2;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+		//Generamos el ápice
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x;
+				break;
+			case 1:
+				vertices[i + coordenada] = y + 1;
+				break;
+			case 2:
+				vertices[i + coordenada] = z;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+		//Generamos el vertice interior
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x;
+				break;
+			case 1:
+				vertices[i + coordenada] = y + 1;
+				break;
+			case 2:
+				vertices[i + coordenada] = z;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+		//Generamos el vertice exterior
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x * 2;
+				break;
+			case 1:
+				vertices[i + coordenada] = y + 1;
+				break;
+			case 2:
+				vertices[i + coordenada] = z * 2;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+		//Generamos el ápice
+		for (i = 0; i < 8; i++) {
+			switch (i)
+			{
+			case 0:
+				vertices[i + coordenada] = x * 2;
+				break;
+			case 1:
+				vertices[i + coordenada] = y;
+				break;
+			case 2:
+				vertices[i + coordenada] = z * 2;
+				break;
+			default:
+				vertices[i + coordenada] = 0.0f;
+				break;
+			}
+		}
+		coordenada += 8;
+
+	}
+
+	for (i = 0; i < verticesBase / 8; i++) {
+		indices[i] = i;
+	}
+
+	//se genera el mesh del toroide
+	Mesh* toroid = new Mesh();
+	toroid->CreateMesh(vertices, indices, verticesBase, verticesBase / 8);
+	meshList.push_back(toroid);
+
+}
+
 int main()
 {
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
@@ -266,6 +420,7 @@ int main()
 
 	CreateObjects();
 	CreateShaders();
+	CreateToroid(256);
 
 	bool dayCicleFlag = true;
 	time_t initialTime = time(NULL);
@@ -719,7 +874,7 @@ int main()
 
 		//Don Gato
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), -2.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))) , mainWindow.getmuevez()));
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		model = glm::rotate(model, mainWindow.getorientacion() * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -733,8 +888,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Sushi.RenderModel(); +
 
-			//platoSushi
-			model = glm::mat4(1.0);
+		//platoSushi
+		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(5.0f - movCoche, -8.0f, 13.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -827,6 +982,17 @@ int main()
 		meshList[4]->RenderMesh();
 		//
 		glDisable(GL_BLEND);
+
+		//Toroide
+		model = glm::mat4(1.0);
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
+		model = glm::translate(model, glm::vec3(-160.0f, -2.0f, 150.0f));
+		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));//FALSE ES PARA QUE NO SEA TRANSPUESTA
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		meshList[5]->RenderMesh();
+
 		glUseProgram(0);
 
 		mainWindow.swapBuffers();
