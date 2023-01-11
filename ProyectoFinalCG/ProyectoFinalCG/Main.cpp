@@ -108,7 +108,9 @@ Model Globo;
 Model Bote;
 Model Postedg;
 Model Pareddg;
+Model Aguila;
 Model Pajaro;
+Model Bugs;
 
 Skybox skyboxDay;
 Skybox skyboxNight;
@@ -501,6 +503,12 @@ int main()
 	Postedg.LoadModel("Models/Postedg.obj");
 	Pareddg = Model();
 	Pareddg.LoadModel("Models/pareddg.obj");
+	Aguila = Model();
+	Aguila.LoadModel("Models/aguila.obj");
+	Pajaro = Model();
+	Pajaro.LoadModel("Models/pajaro.obj");
+	Bugs = Model();
+	Bugs.LoadModel("Models/bugs.obj");
 
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_rgt.tga");
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_lft.tga");
@@ -706,7 +714,7 @@ int main()
 		}
 		//
 		rotllanta += rotllantaOffset * deltaTime;
-
+		rotllanta2 += rotllantaOffset * deltaTime;
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime, mainWindow.getmuevex(), mainWindow.getmuevez());
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
@@ -835,13 +843,34 @@ int main()
 
 		//Bote
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(150.0f, -1.0f, -50.0));
-		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::translate(model, glm::vec3(144.0f, -1.0f, -50.0));
+		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bote.RenderModel();
+		//Bugs
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(129.0f, 7.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), 0.0));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bugs.RenderModel();
+		//Aguila
+		model = glm::mat4(1.0);
+		//model = glm::translate(model, glm::vec3(100.0f -movAguila + movCoche*movAguila +movAguila/movCoche +3*movAguila, 2.0f - movCoche - (2.0 * sin(5.0 * glm::radians(rotllanta))), -150.0 - (90.0 * sin(5.0 * glm::radians(rotllanta)))));
+		model = glm::translate(model, glm::vec3(100.0f + (10 * sin(glm::radians(rotllanta2))) * glm::radians(rotllanta2), 25.0f, -30.0f + (10 * cos(glm::radians(rotllanta2)) * glm::radians(rotllanta2))));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Aguila.RenderModel();
 
-
+		//Pajaro
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(100.0f - movCoche, 0.0f, -150.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pajaro.RenderModel();
 		//Pareddg
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(190.0f, -3.0f, -30.0));
