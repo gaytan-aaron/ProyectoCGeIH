@@ -108,7 +108,7 @@ Model Globo;
 Model Bote;
 Model Postedg;
 Model Pareddg;
-
+Model Pajaro;
 
 Skybox skyboxDay;
 Skybox skyboxNight;
