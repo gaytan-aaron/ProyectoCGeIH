@@ -438,6 +438,7 @@ int main()
 	int verdurasIndex = 0;
 	int aguasIndex = 0;
 	int banderillasIndex = 0;
+	int prueba = 0;
 
 	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.5f, 0.5f);
 
