@@ -103,6 +103,10 @@ Model Trompo;
 Model Plato;
 Model Lpizza;
 Model Globo;
+Model Bote;
+Model Postedg;
+Model Pareddg;
+
 
 Skybox skyboxDay;
 Skybox skyboxNight;
@@ -335,6 +339,12 @@ int main()
 	Lpizza.LoadModel("Models/letreropizza.obj");
 	Globo = Model();
 	Globo.LoadModel("Models/globo.obj");
+	Bote = Model();
+	Bote.LoadModel("Models/Botedg.obj");
+	Postedg = Model();
+	Postedg.LoadModel("Models/Postedg.obj");
+	Pareddg = Model();
+	Pareddg.LoadModel("Models/pareddg.obj");
 
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_rgt.tga");
 	skyboxFacesDay.push_back("Textures/Skybox/skybox_lft.tga");
@@ -375,14 +385,14 @@ int main()
 		100.0f, 25.0f, -150.0f,
 		0.1f, 0.1f, 0.1f);
 	pointLightCount++;
-	
+
 	//Luz de tortas
 	staticPL[1] = PointLight(1.0f, 1.0f, 1.0f,
 		50.0f, 10.0f,
 		200.0f, 30.0f, -150.0f,
 		0.2f, 0.2f, 0.2f);
 	pointLightCount++;
-	
+
 	//Luz de sushi
 	staticPL[2] = PointLight(0.0f, 0.0f, 1.0f,
 		100.0f, 10.0f,
@@ -398,7 +408,7 @@ int main()
 	pointLightCount++;
 
 	//Luz pizzas
-	staticSL[0] = SpotLight(1.0f, 0.0f,0.0f,
+	staticSL[0] = SpotLight(1.0f, 0.0f, 0.0f,
 		10.0f, 1.0f,
 		-160.0f, 5.0f, -150.0f,
 		-1.0f, 0.0f, 0.0f,
@@ -548,7 +558,7 @@ int main()
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if(dayCicleFlag)
+		if (dayCicleFlag)
 			skyboxNight.DrawSkybox(camera.calculateViewMatrix(), projection);
 		else
 			skyboxDay.DrawSkybox(camera.calculateViewMatrix(), projection);
@@ -564,7 +574,7 @@ int main()
 		uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
 		uniformShininess = shaderList[0].GetShininessLocation();
 
-		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));	
+		glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
 		glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
 
@@ -606,7 +616,7 @@ int main()
 		}
 
 		//información al shader de fuentes de iluminación
-		if(dayCicleFlag)
+		if (dayCicleFlag)
 			shaderList[0].SetDirectionalLight(&mainLightNight);
 		else
 			shaderList[0].SetDirectionalLight(&mainLightDay);
@@ -645,7 +655,7 @@ int main()
 		PuestoTacos1.RenderModel();
 		//Trompo
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(100.0f-movCoche, -3.0f, -150.0));
+		model = glm::translate(model, glm::vec3(100.0f - movCoche, -3.0f, -150.0));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -658,7 +668,31 @@ int main()
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		PuestoTortas1.RenderModel();
-		
+
+		//Postedg
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(160.0f, -3.0f, -150.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Postedg.RenderModel();
+
+		//Bote
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(150.0f, -1.0f, -50.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Bote.RenderModel();
+
+
+		//Pareddg
+		model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(190.0f, -3.0f, -30.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Pareddg.RenderModel();
 		//Tortas
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(200.0f, -3.0f, -150.0 - movCoche));
@@ -685,7 +719,7 @@ int main()
 
 		//Don Gato
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), -2.0f, mainWindow.getmuevez()));
+		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), -2.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))) , mainWindow.getmuevez()));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		model = glm::rotate(model, mainWindow.getorientacion() * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -697,11 +731,11 @@ int main()
 		model = glm::scale(model, glm::vec3(4.0f, 4.0f, 4.0f));
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-		Sushi.RenderModel();+
-		
-		//platoSushi
-		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(5.0f-movCoche, -8.0f, 13.0f));
+		Sushi.RenderModel(); +
+
+			//platoSushi
+			model = glm::mat4(1.0);
+		model = glm::translate(model, glm::vec3(5.0f - movCoche, -8.0f, 13.0f));
 		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -709,7 +743,7 @@ int main()
 
 		//Carro de verduras
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(20.0f-movCoche, -2.0f, 65.0));
+		model = glm::translate(model, glm::vec3(20.0f - movCoche, -2.0f, 65.0));
 		//model = glm::translate(model, glm::vec3(-movHel1, 3.0f + (3.5 * sin(glm::radians(rotllanta))), -movHel - 0.1 * rotllanta));
 		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -719,7 +753,7 @@ int main()
 		//Carro de aguas
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-50.0f, 0.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), 150.0));
-		model = glm::scale(model, glm::vec3(3.0f,3.0f, 3.0f));
+		model = glm::scale(model, glm::vec3(3.0f, 3.0f, 3.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Aguas.RenderModel();
