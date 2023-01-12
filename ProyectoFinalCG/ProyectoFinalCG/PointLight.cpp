@@ -8,6 +8,8 @@ PointLight::PointLight() : Light()
 	constant = 1.0f;
 	linear = 0.0f;
 	exponent = 0.0f;
+
+	front = glm::vec3(1.0f, 0.0f, 0.0f);
 }
 
 PointLight::PointLight(GLfloat red, GLfloat green, GLfloat blue, 
@@ -19,6 +21,8 @@ PointLight::PointLight(GLfloat red, GLfloat green, GLfloat blue,
 	constant = con;
 	linear = lin;
 	exponent = exp;
+
+	front = glm::vec3(1.0f,0.0f,0.0f);
 }
 
 void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientcolorLocation, 
@@ -37,4 +41,9 @@ void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientcolor
 
 PointLight::~PointLight()
 {
+}
+
+void PointLight::Animate(GLfloat speed)
+{
+	position += front * 0.5f * speed;
 }

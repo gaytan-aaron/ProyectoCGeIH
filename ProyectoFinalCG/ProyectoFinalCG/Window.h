@@ -16,6 +16,7 @@ public:
 	GLfloat getmuevex() { return muevex; }
 	GLfloat getmuevez() { return muevez; }
 	GLfloat getorientacion() { return orientacion; }
+	bool getonoff() { return onOff; }
 	bool getShouldClose() {
 		return  glfwWindowShouldClose(mainWindow);}
 	bool* getsKeys() { return keys; }
@@ -34,6 +35,7 @@ private:
 	GLfloat yChange;
 	GLfloat muevex;
 	GLfloat muevez;
+	bool onOff;
 	int orientacion;
 	bool mouseFirstMoved;
 	static void ManejaTeclado(GLFWwindow* window, int key, int code, int action, int mode);

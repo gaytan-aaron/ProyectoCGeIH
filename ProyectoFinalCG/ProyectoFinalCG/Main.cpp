@@ -67,6 +67,15 @@ bool avanzac4;
 float toffsetu = 0.0f;
 float toffsetv = 0.0f;
 
+float movey;
+float movex;
+float moveyOffs;
+float movexOffs;
+
+GLfloat indexVectorLuz[20];
+
+bool flagShow;
+
 const float PI = 3.14159265f;
 
 Window mainWindow;
@@ -281,8 +290,6 @@ void CreateToroid(int res) {
 		x = cos((n)*dt);
 		z = sin((n)*dt);
 
-		printf("%f | %f \n", x, z);
-
 		//Generamos el vertice interior
 		for (i = 0; i < 8; i++) {
 			switch (i)
@@ -443,7 +450,7 @@ int main()
 	int banderillasIndex = 0;
 	int prueba = 0;
 
-	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -60.0f, 0.0f, 0.5f, 0.5f);
+	camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, 0.5f, 0.5f);
 
 	brickTexture = Texture("Textures/brick.png");
 	brickTexture.LoadTextureA();
@@ -599,6 +606,54 @@ int main()
 		20.0f);
 	spotLightCount++;
 
+	//Show de luces
+	staticPL[4] = PointLight(1.0f, 0.0f, 0.0f,
+		10.0f, 10.0f,
+		-220.0f, 0.0f, -40.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	staticPL[5] = PointLight(0.0f, 1.0f, 0.0f,
+		10.0f, 10.0f,
+		-220.0f, 0.0f, 70.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	staticPL[6] = PointLight(0.0f, 0.0f, 1.0f,
+		10.0f, 10.0f,
+		-180.0f, 0.0f, -40.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	staticPL[7] = PointLight(1.0f, 1.0f, 0.0f,
+		10.0f, 10.0f,
+		-180.0f, 0.0f, 70.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	staticPL[8] = PointLight(1.0f, 0.0f, 1.0f,
+		10.0f, 10.0f,
+		-200.0f, 0.0f, 15.0f,
+		0.1f, 0.1f, 0.1f);
+	pointLightCount++;
+
+	//Reflectores
+	staticSL[3] = SpotLight(0.0f, 1.0f, 1.0f,
+		10.0f, 1.0f,
+		-160.0f, 30.0f, -40.0f,
+		-1.0f, 0.0f, 0.0f,
+		1.0f, 0.003f, 0.003f,
+		20.0f);
+	spotLightCount++;
+
+	staticSL[4] = SpotLight(1.0f, 1.0f, 1.0f,
+		10.0f, 1.0f,
+		-160.0f, 30.0f, 70.0f,
+		-1.0f, 0.0f, 0.0f,
+		1.0f, 0.003f, 0.003f,
+		20.0f);
+	spotLightCount++;
+
 	GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
 		uniformSpecularIntensity = 0, uniformShininess = 0, uniformTextureOffset = 0;
 	GLuint uniformColor = 0;
@@ -613,6 +668,14 @@ int main()
 	rotllanta1 = 0.5f;
 	rotllanta2 = 6.1f;//0.05
 	rotllantaOffset = 0.09f;
+
+	//Animaciones show luces
+	movey = 0.0f;
+	movex = 0.0f;
+	movexOffs = 0.09f;
+	moveyOffs = 0.045f;
+	flagShow = true;
+
 	//CORRECTO EL DE ABAJO
 	//sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
 	//sndPlaySound(TEXT("topcat.wav"), SND_ASYNC | SND_SENTRY);
@@ -638,6 +701,27 @@ int main()
 			//dayCicleFlag = !dayCicleFlag;
 			currentTime = time(NULL);
 			
+		}
+
+		//----->Animaciones del show de luces<-------------------
+		if (flagShow) {
+			if (movex < 8) {
+				movex += 1;
+				movey += 1;
+			}
+			else {
+				flagShow = false;
+			}
+		}
+		else if (!flagShow) {
+			if (movex > -8)
+			{
+				movex -= 1;
+				movey -= 1;
+			}
+			else {
+				flagShow = true;
+			}
 		}
 
 		if (avanza)
@@ -721,7 +805,7 @@ int main()
 		rotllanta += rotllantaOffset * deltaTime;
 		rotllanta2 += rotllantaOffset * deltaTime;
 		glfwPollEvents();
-		camera.keyControl(mainWindow.getsKeys(), deltaTime);
+		camera.keyControl(mainWindow.getsKeys(), deltaTime, mainWindow.getmuevex(), mainWindow.getmuevez());
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
 		// Clear the window
@@ -779,6 +863,33 @@ int main()
 			pointLights[pointLightCount] = staticPL[3]; //Añadimos luz de banderillas
 			banderillasIndex = pointLightCount;
 			pointLightCount++;
+
+			//Show de luces
+			pointLights[pointLightCount] = staticPL[4]; //Añadimos luz de tacos
+			indexVectorLuz[0] = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[5]; //Añadimos luz de tacos
+			indexVectorLuz[1] = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[6]; //Añadimos luz de tacos
+			indexVectorLuz[2] = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[7]; //Añadimos luz de tacos
+			indexVectorLuz[3] = pointLightCount;
+			pointLightCount++;
+			pointLights[pointLightCount] = staticPL[8]; //Añadimos luz de tacos
+			indexVectorLuz[4] = pointLightCount;
+			pointLightCount++;
+
+			//Reflectores
+			if (mainWindow.getonoff()) {
+				spotLights[spotLightCount] = staticSL[3]; //Añadimos luz de hotdogs
+				indexVectorLuz[5] = spotLightCount;
+				spotLightCount++;
+				spotLights[spotLightCount] = staticSL[4]; //Añadimos luz de hotdogs
+				indexVectorLuz[6] = spotLightCount;
+				spotLightCount++;
+			}
 		}
 		else {
 
@@ -797,9 +908,15 @@ int main()
 		glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 		glm::vec2 toffset = glm::vec2(0.0f, 0.0f);
 
+		//Animaciones show de luces
+		staticPL[4].Animate(movex);
+		staticPL[5].Animate(movex);
+		staticPL[6].Animate(movex * -1);
+		staticPL[7].Animate(movex * -1);
+
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(25.0f, 1.0f, 20.0f));
+		model = glm::scale(model, glm::vec3(30.0f, 1.0f, 30.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniform2fv(uniformTextureOffset, 1, glm::value_ptr(toffset));
@@ -910,7 +1027,7 @@ int main()
 
 		//Don Gato
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0));
+		model = glm::translate(model, glm::vec3(mainWindow.getmuevex(), -2.0f, mainWindow.getmuevez()));
 		model = glm::scale(model, glm::vec3(5.0f, 5.0f, 5.0f));
 		model = glm::rotate(model, mainWindow.getorientacion() * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -968,7 +1085,7 @@ int main()
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(-200.0f, 0.0f, 20.0));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
-		model = glm::rotate(model, -185 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Teatro.RenderModel();
 

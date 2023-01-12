@@ -13,7 +13,7 @@ public:
 	Camera();
 	Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed);
 
-	void keyControl(bool* keys, GLfloat deltaTime);
+	void keyControl(bool* keys, GLfloat deltaTime, GLfloat xCharacter, GLfloat zCharacter);
 	void mouseControl(GLfloat xChange, GLfloat yChange);
 
 	glm::vec3 getCameraPosition();
@@ -24,16 +24,22 @@ public:
 
 private:
 	glm::vec3 position;
+	glm::vec3 positionTemp;
 	glm::vec3 front;
 	glm::vec3 up;
 	glm::vec3 right;
 	glm::vec3 worldUp;
+
+	GLfloat characterX;
+	GLfloat characterZ;
 
 	GLfloat yaw;
 	GLfloat pitch;
 
 	GLfloat moveSpeed;
 	GLfloat turnSpeed;
+
+	int cameraSelection;
 
 	void update();
 };
