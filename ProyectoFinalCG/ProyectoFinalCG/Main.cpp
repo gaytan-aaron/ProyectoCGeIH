@@ -18,6 +18,8 @@ Animación:
 #include <Mmsystem.h>
 #include <glew.h>
 #include <glfw3.h>
+#include <iostream>
+#include <fstream>
 
 #include <glm.hpp>
 #include <gtc\matrix_transform.hpp>
@@ -71,6 +73,10 @@ float movey;
 float movex;
 float moveyOffs;
 float movexOffs;
+float reproduciranimacion, habilitaranimacion,
+guardoFrame, reinicioFrame, ciclo, ciclo2, contador = 0;
+
+std::ofstream file;
 
 GLfloat indexVectorLuz[20];
 
@@ -150,6 +156,10 @@ static const char* vShader = "shaders/shader_light.vert";
 
 // Fragment Shader
 static const char* fShader = "shaders/shader_light.frag";
+
+//PARA INPUT CON KEYFRAMES 
+void inputKeyframes(bool* keys);
+
 
 //cálculo del promedio de las normales para sombreado de Phong
 void calcAverageNormals(unsigned int* indices, unsigned int indiceCount, GLfloat* vertices, unsigned int verticeCount,
@@ -422,7 +432,109 @@ void CreateToroid(int res) {
 	meshList.push_back(toroid);
 
 }
+///////////////////////////////KEYFRAMES/////////////////////
 
+
+bool animacion = false;
+
+
+//NEW// Keyframes
+float posXavion = 2.0, posYavion = 5.0, posZavion = -3.0;
+float	movAvion_x = -5.0f, movAvion_y = 0.0f;
+float giroAvion = 0;
+
+#define MAX_FRAMES 40
+int i_max_steps = 90;
+int i_curr_steps = 8;
+typedef struct _frame
+{
+	//Variables para GUARDAR Key Frames
+	float movAvion_x;		//Variable para PosicionX
+	float movAvion_y;		//Variable para PosicionY
+	float movAvion_xInc;		//Variable para IncrementoX
+	float movAvion_yInc;		//Variable para IncrementoY
+	float giroAvion;
+	float giroAvionInc;
+}FRAME;
+
+FRAME KeyFrame[MAX_FRAMES];
+int FrameIndex = 8;			//introducir datos
+bool play = false;
+int playIndex = 0;
+
+void saveFrame(void)
+{
+
+	printf("frameindex %d\n", FrameIndex);
+
+
+	KeyFrame[FrameIndex].movAvion_x = movAvion_x;
+	KeyFrame[FrameIndex].movAvion_y = movAvion_y;
+	KeyFrame[FrameIndex].giroAvion = giroAvion;
+
+	file << "KeyFrame[" << FrameIndex << "].movAvion_x = movAvion_x; \n";
+	file << "KeyFrame[" << FrameIndex << "].movAvion_y = movAvion_y;\n";
+	file << "KeyFrame[" << FrameIndex << "].giroAvion = giroAvion;\n";
+
+	FrameIndex++;
+}
+
+void resetElements(void)
+{
+
+	movAvion_x = KeyFrame[0].movAvion_x;
+	movAvion_y = KeyFrame[0].movAvion_y;
+	giroAvion = KeyFrame[0].giroAvion;
+}
+
+void interpolation(void)
+{
+	KeyFrame[playIndex].movAvion_xInc = (KeyFrame[playIndex + 1].movAvion_x - KeyFrame[playIndex].movAvion_x) / i_max_steps;
+	KeyFrame[playIndex].movAvion_yInc = (KeyFrame[playIndex + 1].movAvion_y - KeyFrame[playIndex].movAvion_y) / i_max_steps;
+	KeyFrame[playIndex].giroAvionInc = (KeyFrame[playIndex + 1].giroAvion - KeyFrame[playIndex].giroAvion) / i_max_steps;
+
+}
+
+
+void animate(void)
+{
+	//Movimiento del objeto
+	if (play)
+	{
+		if (i_curr_steps >= i_max_steps) //end of animation between frames?
+		{
+			playIndex++;
+			printf("playindex : %d\n", playIndex);
+			if (playIndex > FrameIndex - 2)	//end of total animation?
+			{
+				printf("Frame index= %d\n", FrameIndex);
+				printf("termina anim\n");
+				playIndex = 0;
+				play = false;
+			}
+			else //Next frame interpolations
+			{
+				//printf("entro aquí\n");
+				i_curr_steps = 0; //Reset counter
+				//Interpolation
+				interpolation();
+			}
+		}
+		else
+		{
+			//printf("se quedó aqui\n");
+			//printf("max steps: %f", i_max_steps);
+			//Draw animation
+			movAvion_x += KeyFrame[playIndex].movAvion_xInc;
+			movAvion_y += KeyFrame[playIndex].movAvion_yInc;
+			giroAvion += KeyFrame[playIndex].giroAvionInc;
+			i_curr_steps++;
+		}
+
+	}
+}
+
+/* FIN KEYFRAMES*/
 int main()
 {
 	mainWindow = Window(1366, 768); // 1280, 1024 or 1024, 768
@@ -466,7 +578,7 @@ int main()
 	FlechaTexture1.LoadTextureA();
 
 	Blackhawk_M = Model();
-	Blackhawk_M.LoadModel("Models/uh60.obj");
+	Blackhawk_M.LoadModel("Models/gato.obj");
 	Camino_M = Model();
 	Camino_M.LoadModel("Models/railroad track.obj");
 	Pista_M = Model();
@@ -678,8 +790,47 @@ int main()
 
 	//CORRECTO EL DE ABAJO
 	//sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
-	//sndPlaySound(TEXT("topcat.wav"), SND_ASYNC | SND_SENTRY);
+	sndPlaySound(TEXT("topcat.wav"), SND_ASYNC | SND_SENTRY);
 	////Loop mientras no se cierra la ventana
+	glm::vec3 posblackhawk = glm::vec3(-5.0f, 0.0f, 0.0f);
+	//KEYFRAMES DECLARADOS INICIALES
+
+	KeyFrame[0].movAvion_x = -5.0f;
+	KeyFrame[0].movAvion_y = 0.0f;
+	KeyFrame[0].giroAvion = 0;
+
+
+	KeyFrame[1].movAvion_x = 1.0f;
+	KeyFrame[1].movAvion_y = 2.0f;
+	KeyFrame[1].giroAvion = 0;
+
+
+	KeyFrame[2].movAvion_x = 2.0f;
+	KeyFrame[2].movAvion_y = 0.0f;
+	KeyFrame[2].giroAvion = 0;
+
+
+	KeyFrame[3].movAvion_x = 3.0f;
+	KeyFrame[3].movAvion_y = -2.0f;
+	KeyFrame[3].giroAvion = 0;
+
+	KeyFrame[4].movAvion_x = 4.0f;
+	KeyFrame[4].movAvion_y = 0.0f;
+	KeyFrame[4].giroAvion = 0.0f;
+
+	KeyFrame[5].movAvion_x = 4.0f;
+	KeyFrame[5].movAvion_y = 0.0f;
+	KeyFrame[5].giroAvion = -180.0f;
+
+	KeyFrame[6].movAvion_x = -5.0f;
+	KeyFrame[6].movAvion_y = 0.0f;
+	KeyFrame[6].giroAvion = -180.0f;
+
+	KeyFrame[7].movAvion_x = -5.0f;
+	KeyFrame[7].movAvion_y = 0.0f;
+	KeyFrame[7].giroAvion = 0.0f;
+
+
 	while (!mainWindow.getShouldClose())
 	{
 		GLfloat now = glfwGetTime();
@@ -807,6 +958,9 @@ int main()
 		glfwPollEvents();
 		camera.keyControl(mainWindow.getsKeys(), deltaTime, mainWindow.getmuevex(), mainWindow.getmuevez());
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+		//para keyframes
+		inputKeyframes(mainWindow.getsKeys());
+		animate();
 
 		// Clear the window
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -923,6 +1077,18 @@ int main()
 		pisoTexture.UseTexture();
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
+		//Gato
+		model = glm::mat4(1.0);
+		posblackhawk = glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion);
+		model = glm::translate(model, posblackhawk);
+		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, -1.0f, 0.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
+		Blackhawk_M.RenderModel();
+
 
 		//Food Truck Hot-Dogs
 		model = glm::mat4(1.0);
@@ -1152,4 +1318,123 @@ int main()
 	}
 
 	return 0;
+}
+void inputKeyframes(bool* keys)
+{
+	if (keys[GLFW_KEY_SPACE])
+	{
+		if (reproduciranimacion < 1)
+		{
+			if (play == false && (FrameIndex > 1))
+			{
+				resetElements();
+				//First Interpolation				
+				interpolation();
+				play = true;
+				playIndex = 0;
+				i_curr_steps = 0;
+				reproduciranimacion++;
+				printf("\n presiona 0 para habilitar reproducir de nuevo la animación'\n");
+				habilitaranimacion = 0;
+
+			}
+			else
+			{
+				play = false;
+			}
+		}
+	}
+	if (keys[GLFW_KEY_8])
+	{
+		if (habilitaranimacion < 1)
+		{
+			reproduciranimacion = 0;
+		}
+	}
+
+	if (keys[GLFW_KEY_L])
+	{
+		if (guardoFrame < 1)
+		{
+			saveFrame();
+			printf("movAvion_x es: %f\n", movAvion_x);
+			//printf("movAvion_y es: %f\n", movAvion_y);
+			printf(" \npresiona P para habilitar guardar otro frame'\n");
+			guardoFrame++;
+			reinicioFrame = 0;
+		}
+	}
+	if (keys[GLFW_KEY_P])
+	{
+		if (reinicioFrame < 1)
+		{
+			guardoFrame = 0;
+		}
+	}
+
+
+	if (keys[GLFW_KEY_C])
+	{
+		if (ciclo < 1)
+		{
+			movAvion_x += 1.0f;
+			ciclo++;
+			ciclo2 = 0;
+			printf("\n reinicia con 2\n");
+		}
+	}
+	if (keys[GLFW_KEY_V])
+	{
+		if (ciclo < 1)
+		{
+			movAvion_x -= 1.0f;
+			printf("\n movAvion_x es: %f\n", movAvion_x);
+			ciclo++;
+			ciclo2 = 0;
+			printf("\n reinicia con 2\n");
+		}
+	}
+	if (keys[GLFW_KEY_B])
+	{
+		if (ciclo < 1)
+		{
+			movAvion_y += 1.0f;
+			printf("\n movAvion_x es: %f\n", movAvion_x);
+			ciclo++;
+			ciclo2 = 0;
+			printf("\n reinicia con 2\n");
+		}
+	}
+	if (keys[GLFW_KEY_N])
+	{
+		if (ciclo < 1)
+		{
+			giroAvion -= 90;
+			ciclo++;
+			ciclo2 = 0;
+			printf("\n reinicia con 2\n");
+		}
+	}
+	if (keys[GLFW_KEY_M])
+	{
+		if (ciclo < 1)
+		{
+			giroAvion += 90;
+			ciclo++;
+			ciclo2 = 0;
+			printf("\n reinicia con 2\n");
+		}
+	}
+
+	if (keys[GLFW_KEY_4])
+	{
+		if (ciclo2 < 1)
+		{
+			ciclo = 0;
+		}
+	}
+	if (keys[GLFW_KEY_7])
+	{
+		file.close();
+	}
 }
