@@ -1,0 +1,150 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 11.01.2023 23:56:14
+
+newmtl 08___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\textfhd.tga
+
+newmtl 15___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\colorllanta.png
+
+newmtl 09___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\hotdogs.tga
+
+newmtl wire_225088199
+	Kd 0.8824 0.3451 0.7804
+	Ks 0.3500 0.3500 0.3500
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.6800
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl wire_135006006
+	Kd 0.5294 0.0235 0.0235
+	Ks 0.3500 0.3500 0.3500
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.6800
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+
+newmtl 13___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\ventanafdhd.tga
+
+newmtl 14___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\puertafdhd.tga
+
+newmtl 20___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\farodelantero.tga
+
+newmtl 01___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\colorptortas.tga
+
+newmtl 19___Default
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Tr 0.0000
+	d 1.0000
+	Tf 1.0000 1.0000 1.0000
+	Pr 0.9000
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5000
+	Ke 0.0000 0.0000 0.0000
+	illum 2
+	map_Kd C:\Users\Adrian\Documents\DIEGO WORK\9no semestre\Lab. Computación Gráfica e interacción humano computadora\Prácticas\Proyecto\Proyecto\Textures\farotrasero.tga

@@ -578,7 +578,7 @@ int main()
 	FlechaTexture1.LoadTextureA();
 
 	Blackhawk_M = Model();
-	Blackhawk_M.LoadModel("Models/gato.obj");
+	Blackhawk_M.LoadModel("Models/globos.obj");
 	Camino_M = Model();
 	Camino_M.LoadModel("Models/railroad track.obj");
 	Pista_M = Model();
@@ -588,15 +588,15 @@ int main()
 	Poste_M = Model();
 	Poste_M.LoadModel("Models/posteobj.obj");
 	PuestoTortas1 = Model();
-	PuestoTortas1.LoadModel("Models/PuestoTortas2.obj");
+	PuestoTortas1.LoadModel("Models/PuestoTortas4.obj");
 	PuestoTacos1 = Model();
-	PuestoTacos1.LoadModel("Models/PuestoTacos2.obj");
+	PuestoTacos1.LoadModel("Models/PuestoTacos3.obj");
 	Trompo = Model();
 	Trompo.LoadModel("Models/Trompo.obj");
 	Fdhd = Model();
-	Fdhd.LoadModel("Models/Foodthd.obj");
+	Fdhd.LoadModel("Models/Foodthd1.obj");
 	Fdpi = Model();
-	Fdpi.LoadModel("Models/Foodtpi.obj");
+	Fdpi.LoadModel("Models/Foodtpi1.obj");
 	Dongato = Model();
 	Dongato.LoadModel("Models/Dongato.obj");
 	Aguas = Model();
@@ -618,7 +618,7 @@ int main()
 	Globo = Model();
 	Globo.LoadModel("Models/globo.obj");
 	Bote = Model();
-	Bote.LoadModel("Models/Botedg.obj");
+	Bote.LoadModel("Models/Botedg1.obj");
 	Postedg = Model();
 	Postedg.LoadModel("Models/Postedg.obj");
 	Pareddg = Model();
@@ -1077,11 +1077,11 @@ int main()
 		pisoTexture.UseTexture();
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
-		//Gato
+		//Globos
 		model = glm::mat4(1.0);
 		posblackhawk = glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion);
 		model = glm::translate(model, posblackhawk);
-		model = glm::scale(model, glm::vec3(0.3f, 0.3f, 0.3f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
 		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, -1.0f, 0.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -1131,7 +1131,7 @@ int main()
 
 		//Bote
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(144.0f, -1.0f, -50.0));
+		model = glm::translate(model, glm::vec3(163.0f, 10.0f, -23.0));
 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
