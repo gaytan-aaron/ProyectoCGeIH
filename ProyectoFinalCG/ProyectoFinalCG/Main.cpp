@@ -618,7 +618,7 @@ int main()
 	Globo = Model();
 	Globo.LoadModel("Models/globo.obj");
 	Bote = Model();
-	Bote.LoadModel("Models/Botedg1.obj");
+	Bote.LoadModel("Models/Botedg2.obj");
 	Postedg = Model();
 	Postedg.LoadModel("Models/Postedg.obj");
 	Pareddg = Model();
@@ -788,9 +788,10 @@ int main()
 	moveyOffs = 0.045f;
 	flagShow = true;
 
-	//CORRECTO EL DE ABAJO
+	//AUDIO
 	//sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
 	sndPlaySound(TEXT("topcat.wav"), SND_ASYNC | SND_SENTRY);
+	
 	////Loop mientras no se cierra la ventana
 	glm::vec3 posblackhawk = glm::vec3(-5.0f, 0.0f, 0.0f);
 	//KEYFRAMES DECLARADOS INICIALES
@@ -956,6 +957,7 @@ int main()
 		rotllanta += rotllantaOffset * deltaTime;
 		rotllanta2 += rotllantaOffset * deltaTime;
 		glfwPollEvents();
+		//Camara
 		camera.keyControl(mainWindow.getsKeys(), deltaTime, mainWindow.getmuevex(), mainWindow.getmuevez());
 		camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 		//para keyframes
@@ -1077,6 +1079,7 @@ int main()
 		pisoTexture.UseTexture();
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
+		
 		//Globos
 		model = glm::mat4(1.0);
 		posblackhawk = glm::vec3(posXavion + movAvion_x, posYavion + movAvion_y, posZavion);
@@ -1131,7 +1134,7 @@ int main()
 
 		//Bote
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(163.0f, 10.0f, -23.0));
+		model = glm::translate(model, glm::vec3(160.0f, 0.0f, -19.0));
 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
