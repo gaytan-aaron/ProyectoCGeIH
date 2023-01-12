@@ -16,9 +16,12 @@ public:
 		GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation);
 
 	~PointLight();
+	void Animate(GLfloat speed);
 
 protected:
 	glm::vec3 position;
+
+	glm::vec3 front;
 
 	GLfloat constant, linear, exponent;
 };

@@ -16,6 +16,7 @@ Window::Window(GLint windowWidth, GLint windowHeight)
 	muevex = 0.0f;
 	muevez = 0.0f;
 	orientacion = 0;
+	onOff = true;
 	for (size_t i = 0; i < 1024; i++)
 	{
 		keys[i] = 0;
@@ -127,6 +128,15 @@ void Window::ManejaTeclado(GLFWwindow* window, int key, int code, int action, in
 	{
 		theWindow->muevez += 1.0f;
 		theWindow->orientacion = 0;
+	}
+
+	if (key == GLFW_KEY_0)
+	{
+		theWindow->onOff = false;
+	}
+	if (key == GLFW_KEY_9)
+	{
+		theWindow->onOff = true;
 	}
 
 	if (key >= 0 && key < 1024)
