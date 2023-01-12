@@ -52,6 +52,7 @@ float movCo2;
 float movCo3;
 float movCo4;
 float movOffset;
+float movOffset2;
 float rotllanta;
 float rotllanta1;
 float rotllanta2;
@@ -607,13 +608,14 @@ int main()
 	movHel = 0.0f;
 	movHel1 = 0.0f;
 	movOffset = 0.03f;//.01
+	movOffset2 = 0.03f;//.01
 	rotllanta = 0.05f;//0.05
 	rotllanta1 = 0.5f;
 	rotllanta2 = 6.1f;//0.05
 	rotllantaOffset = 0.09f;
 	//CORRECTO EL DE ABAJO
-	sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
-
+	//sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_LOOP);
+	//sndPlaySound(TEXT("topcat.wav"), SND_ASYNC | SND_SENTRY);
 	////Loop mientras no se cierra la ventana
 	while (!mainWindow.getShouldClose())
 	{
@@ -630,14 +632,17 @@ int main()
 			dayCicleFlag = !dayCicleFlag;
 			initialTime = time(NULL);
 			currentTime = time(NULL);
+			//sndPlaySound(TEXT("sound.wav"), SND_ASYNC | SND_SENTRY);
 		}
 		else {
+			//dayCicleFlag = !dayCicleFlag;
 			currentTime = time(NULL);
+			
 		}
 
 		if (avanza)
 		{
-			if (movCoche > -1.0f)
+			if (movCoche > -1.0f)//0.0f>-1.0f
 			{
 				movCoche -= movOffset * deltaTime;
 				//printf("avanza%f \n ",movCoche);
@@ -850,23 +855,24 @@ int main()
 		Bote.RenderModel();
 		//Bugs
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(129.0f, 7.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), 0.0));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(144.0f, 7.0f - (2.0 * sin(5.0 * glm::radians(rotllanta))), -7.0));
+		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Bugs.RenderModel();
 		//Aguila
 		model = glm::mat4(1.0);
 		//model = glm::translate(model, glm::vec3(100.0f -movAguila + movCoche*movAguila +movAguila/movCoche +3*movAguila, 2.0f - movCoche - (2.0 * sin(5.0 * glm::radians(rotllanta))), -150.0 - (90.0 * sin(5.0 * glm::radians(rotllanta)))));
-		model = glm::translate(model, glm::vec3(100.0f + (10 * sin(glm::radians(rotllanta2))) * glm::radians(rotllanta2), 25.0f, -30.0f + (10 * cos(glm::radians(rotllanta2)) * glm::radians(rotllanta2))));
+		model = glm::translate(model, glm::vec3(100.0f + (10 * sin(glm::radians(rotllanta2))) * glm::radians(rotllanta2), 45.0f, -30.0f + (10 * cos(glm::radians(rotllanta2)) * glm::radians(rotllanta2))));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f , 0.0f + (0.5 * sin(glm::radians(rotllanta)))));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Aguila.RenderModel();
 
 		//Pajaro
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(100.0f - movCoche, 0.0f, -150.0));
+		//model = glm::translate(model, glm::vec3(100.0f - movCoche, 0.0f, -150.0));
+		model = glm::translate(model, glm::vec3(100.0f - (10 * sin(glm::radians(rotllanta2))) * glm::radians(rotllanta2), 25.0f, -30.0f - (10 * cos(glm::radians(rotllanta2)) * glm::radians(rotllanta2))));
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, 0 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
@@ -952,7 +958,7 @@ int main()
 
 		//Brochetas
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(-100.0f, -2.0f, 150.0));
+		model = glm::translate(model, glm::vec3(-100.0f-movCoche, -2.0f, 150.0));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		model = glm::rotate(model, -185 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
